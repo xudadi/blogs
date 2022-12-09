@@ -1,0 +1,547 @@
+<html>
+
+<head lang="zh">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<meta name="renderer" content="webkit">
+<title>
+  NavigationView 的使用 | 许大地博客
+</title>
+<link href="https://xudadi.cn/styles/main.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://xudadi.cn/media/scripts/jquery.js"></script>
+<script type="text/javascript" src="https://xudadi.cn/media/scripts/basic.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+</head>
+
+<body>
+  <div class="header">
+  <div class="logo_title">
+
+    <div class="title animated fadeInDown"><a href="/"></a><img
+        src="https://xudadi.cn/images/avatar.png?v=1670554342329" /></a>
+
+      <h1 title="许大地博客" class="weaklink"><a href="/">
+          许大地博客
+        </a>
+      </h1>
+
+      <div class="navbar weaklink">
+        <div class="normal_nav">
+
+          <div class="bitcron_nav_container">
+
+            <div class="bitcron_nav">
+              <div class="mixed_site_nav_wrap site_nav_wrap">
+
+                <ul class="mixed_site_nav site_nav sm sm-base">
+                  
+                    <li><a id="Nav" href="/" class="selected active current nav_item">
+                        首页
+                      </a>
+
+                    </li>
+                    
+                    <li><a id="Nav" href="/archives" class="selected active current nav_item">
+                        归档
+                      </a>
+
+                    </li>
+                    
+                    <li><a id="Nav" href="/tags" class="selected active current nav_item">
+                        标签
+                      </a>
+
+                    </li>
+                    
+                    <li><a id="Nav" href="/post/about" class="selected active current nav_item">
+                        关于
+                      </a>
+
+                    </li>
+                    
+
+                </ul>
+
+                <div class="clear clear_nav_inline_end"></div>
+
+              </div>
+
+            </div>
+
+            <div class="clear clear_nav_end"></div>
+
+          </div>
+
+        </div>
+
+        <div class="hamberger"><i class="fa fa-bars"></i>
+          <i class="fa fa-times"></i>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="hidden_nav animated fadeInDown">
+
+    <div class="bitcron_nav_container">
+
+      <div class="bitcron_nav">
+        <div class="mixed_site_nav_wrap site_nav_wrap">
+          <ul class="mixed_site_nav site_nav sm sm-base">
+
+            
+              <li><a id="Nav" href="/" class="selected active current nav__item">
+                  首页
+                </a>
+
+              </li>
+
+              
+              <li><a id="Nav" href="/archives" class="selected active current nav__item">
+                  归档
+                </a>
+
+              </li>
+
+              
+              <li><a id="Nav" href="/tags" class="selected active current nav__item">
+                  标签
+                </a>
+
+              </li>
+
+              
+              <li><a id="Nav" href="/post/about" class="selected active current nav__item">
+                  关于
+                </a>
+
+              </li>
+
+              
+
+          </ul>
+
+          <div class="clear clear_nav_inline_end"></div>
+
+        </div>
+
+      </div>
+
+      <div class="clear clear_nav_end"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+    <div class="main">
+      <div class="main-inner">
+
+        <div class="content">
+
+          <div class="post_page">
+
+            <div class="post">
+              <div class="post_title sm_margin">
+                <h2><a>
+                    NavigationView 的使用
+                  </a>
+
+                </h2>
+              </div>
+
+              <div class="post_details">
+                <div class="info"><i class="fa fa-clock-o"></i>
+                  <span class="date_info">
+                    2019-09-19
+                  </span>
+                  <i class="fa fa-eye"></i>
+
+                  <span class="date_info"><span id="busuanzi_value_page_pv"></span> 查看</span>
+
+                  <i class="fa fa-bookmark-o"></i>
+                  <span class="tags_info weaklink">
+                    
+                      <a href="https://xudadi.cn/tag/wXJLr89DOH/" class="tag">
+                        Android
+                      </a>
+                      
+
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div class="post_content markdown">
+                <p class="md_block">
+                  <span class="md_line md_line_start md_line_end">
+                    <p>NavigationView 的引入让 Android 侧边栏实现起来相当方便，最近公司项目中也使用这个新的控件完成了侧边栏的改版。在使用过程中遇到一些坑，写篇博文记录一下。</p>
+<p>本文分为两大主要部分，第一部分是基本使用，第二部分是各种使用小细节（坑），如果你对其使用已经熟悉了，可以跳过第一部分。</p>
+<!-- more -->
+<h3 id="基本使用">基本使用</h3>
+<ol>
+<li>
+<p><code>NavigationView</code> 在 design 库中，添加依赖（最新的是 23.2.0）；</p>
+<pre><code class="language-groovy">compile 'com.android.support:design:23.1.1'
+</code></pre>
+</li>
+<li>
+<p>然后在 DrawerLayout 布局中添加 NavigationView ；</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+
+&lt;android.support.v4.widget.DrawerLayout
+    android:id=&quot;@+id/drawer_layout&quot;
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;FrameLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;&gt;
+
+        &lt;LinearLayout
+            android:id=&quot;@+id/main&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;match_parent&quot;
+            android:orientation=&quot;vertical&quot;&gt;
+
+            &lt;android.support.v7.widget.Toolbar
+                android:id=&quot;@+id/toolbar&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;?attr/actionBarSize&quot;
+                android:background=&quot;@color/colorPrimary&quot;
+                app:popupTheme=&quot;@style/ThemeOverlay.AppCompat.Light&quot;
+                app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;/&gt;
+
+           ......
+
+        &lt;/LinearLayout&gt;
+    &lt;/FrameLayout&gt;
+
+    &lt;android.support.design.widget.NavigationView
+        android:id=&quot;@+id/navigation&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_gravity=&quot;start&quot;
+        app:headerLayout=&quot;@layout/nav_header&quot;
+        app:menu=&quot;@menu/activity_main_drawer&quot;/&gt;
+
+&lt;/android.support.v4.widget.DrawerLayout&gt;
+</code></pre>
+<p>其中需要注意给 NavigationView 设置 <code>android:layout_gravity=&quot;start&quot;</code> 属性。</p>
+</li>
+<li>
+<p>然后注意到 NavigationView 其实是分两个部分的，一个是头部，一个是下面的菜单列表部分，如下图所示：</p>
+<figure data-type="image" tabindex="1"><img src="https://lc-qygvx1cc.cn-n1.lcfile.com/9585eb130bb180b5.png" alt="" loading="lazy"></figure>
+<p>其中头部通过 <code>app:headerLayout=&quot;@layout/nav_header&quot;</code> 属性添加，<code>nav_header</code> 的布局如下：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+             android:layout_width=&quot;match_parent&quot;
+             android:layout_height=&quot;192dp&quot;
+             android:theme=&quot;@style/ThemeOverlay.AppCompat.Dark&quot;&gt;
+
+    &lt;ImageView
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:background=&quot;@drawable/nav_header_bg&quot;
+        android:scaleType=&quot;centerCrop&quot;/&gt;
+
+    &lt;ImageView
+        android:layout_width=&quot;96dp&quot;
+        android:layout_height=&quot;96dp&quot;
+        android:layout_gravity=&quot;bottom&quot;
+        android:layout_marginBottom=&quot;36dp&quot;
+        android:padding=&quot;8dp&quot;
+        android:src=&quot;@drawable/ic_avatar&quot;/&gt;
+
+    &lt;TextView
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_gravity=&quot;bottom&quot;
+        android:padding=&quot;16dp&quot;
+        android:text=&quot;Jaeger&quot;
+        android:textAppearance=&quot;@style/TextAppearance.AppCompat.Body1&quot;/&gt;
+
+&lt;/FrameLayout&gt;
+</code></pre>
+<p>下面的菜单列表部分是一个 <code>menu</code> 文件，通过 <code>app:menu=&quot;@menu/activity_main_drawer&quot;</code>属性添加。</p>
+<p><code>activity_main_drawer.xml</code> 文件在 menu 文件夹下，内容为：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+
+    &lt;group android:checkableBehavior=&quot;single&quot;&gt;
+        &lt;item
+            android:id=&quot;@+id/nav_camera&quot;
+            android:icon=&quot;@drawable/ic_menu_camera&quot;
+            android:title=&quot;Import&quot;/&gt;
+        &lt;item
+            android:id=&quot;@+id/nav_gallery&quot;
+            android:icon=&quot;@drawable/ic_menu_gallery&quot;
+            android:title=&quot;Gallery&quot;/&gt;
+        &lt;item
+            android:id=&quot;@+id/nav_slideshow&quot;
+            android:icon=&quot;@drawable/ic_menu_slideshow&quot;
+            android:title=&quot;Slideshow&quot;/&gt;
+        &lt;item
+            android:id=&quot;@+id/nav_manage&quot;
+            android:icon=&quot;@drawable/ic_menu_manage&quot;
+            android:title=&quot;Tools&quot;/&gt;
+    &lt;/group&gt;
+
+    &lt;item android:title=&quot;Communicate&quot;&gt;
+        &lt;menu&gt;
+            &lt;item
+                android:id=&quot;@+id/nav_share&quot;
+                android:icon=&quot;@drawable/ic_menu_share&quot;
+                android:title=&quot;Share&quot;/&gt;
+            &lt;item
+                android:id=&quot;@+id/nav_send&quot;
+                android:icon=&quot;@drawable/ic_menu_send&quot;
+                android:title=&quot;Send&quot;/&gt;
+        &lt;/menu&gt;
+    &lt;/item&gt;
+
+&lt;/menu&gt;
+</code></pre>
+</li>
+<li>
+<p>菜单列表的点击事件<br>
+菜单列表的点击事件设置代码如下：</p>
+<pre><code class="language-java">navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+       switch (item.getItemId()){
+           case R.id.nav_personal_info:
+           		// do something
+               break;
+           ...
+       }
+        return false;
+    }
+});
+</code></pre>
+</li>
+</ol>
+<p>至此，<code>NavigationView</code> 的基本使用就差不多搞定了，效果就是前面图片显示的效果。接下来是各种填坑环节。😂</p>
+<h3 id="使用小细节和坑">使用小细节（和坑）</h3>
+<ol>
+<li>
+<p>获得头部（header）内控件</p>
+<p>在旧版本中，假如你要获得 NavigationView 中的头像 <code>ImageView</code>，你可以在 activity 中直接调用 <code>findViewById()</code> 方法来获得。但是在 Support Library 23.1.0 版本之后，这个不再适用，在我使用的 Support Library 23.1.1 版本中，可以直接调用 <code>getHeaderView()</code>方法先得到 Header,然后在通过header来获得头部内的控件。</p>
+<pre><code class="language-java">View headerView = navigationView.getHeaderView(0);
+ImageView ivAvatar = (ImageView) headerView.findViewById(R.id.nav_avatar);
+</code></pre>
+<p>然后就可以进行各种愉快的头像设置，用户名设置了~</p>
+<p>关于这个问题，如果你用的不是23.1.1版本的话，你可以看 stackoverflow 上的讨论<a href="http://stackoverflow.com/questions/33194594/navigationview-get-find-header-layout"> NavigationView get/find header layout</a>，针对其他版本也有解决方法说明。</p>
+</li>
+<li>
+<p>菜单列表中的图标不显示原始颜色</p>
+<p>当设计师为每一项的图标都设置了不同的颜色时，你将切好的彩色图标文件放进去，运行后发现全变成灰色了。此时可以通过 <code>app:itemIconTint=&quot;@color/blue&quot;</code> 为图标统一设置颜色，前后效果如下：</p>
+<figure data-type="image" tabindex="2"><img src="https://lc-qygvx1cc.cn-n1.lcfile.com/28339a52ef1959fb.png" alt="" loading="lazy"></figure>
+<p>然而这还不是我们需要的效果，我们需要的是彩色的图标，而不是统一的图标颜色。</p>
+<p>解决方法是调用 <code>NavigationView</code> 的 <code>setItemIconTintList(ColorStateList tint)</code> 方法，传入 <code>null</code> 参数：</p>
+<pre><code class="language-java">navigationView.setItemIconTintList(null);
+</code></pre>
+<p>最终效果如下：</p>
+<figure data-type="image" tabindex="3"><img src="https://lc-qygvx1cc.cn-n1.lcfile.com/b6274eeeb060aafb.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>添加分割线</p>
+<p>如上面的截图所示，菜单列表分成了两个部分，中间用一个分割线隔开。解决方法是在 menu 文件中分成多个 <code>group</code> ，且为每个 group 设置 id ，如下：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;group
+        android:id=&quot;@+id/first_group&quot;
+        android:checkableBehavior=&quot;none&quot;&gt;
+        &lt;item
+            android:id=&quot;@+id/nav_personal_info&quot;
+            android:icon=&quot;@drawable/nav_personal_info&quot;
+            android:title=&quot;@string/personal_info_setting&quot;/&gt;
+
+        ...
+
+        &lt;item
+            android:id=&quot;@+id/nav_system_setting&quot;
+            android:icon=&quot;@drawable/nav_setting&quot;
+            android:title=&quot;@string/system_setting&quot;/&gt;
+    &lt;/group&gt;
+
+    &lt;group android:id=&quot;@+id/second_group&quot;&gt;
+        &lt;item
+            android:id=&quot;@+id/nav_score&quot;
+            android:icon=&quot;@drawable/nav_score&quot;
+            android:title=&quot;@string/score&quot;/&gt;
+        &lt;item
+            android:id=&quot;@+id/nav_feedback&quot;
+            android:icon=&quot;@drawable/nav_feedback&quot;
+            android:title=&quot;@string/feedback&quot;/&gt;
+    &lt;/group&gt;
+
+&lt;/menu&gt;
+</code></pre>
+</li>
+<li>
+<p>隐藏某个菜单列表项</p>
+<p>公司项目会根据你是否是管理员，来控制某个菜单列表项的显示和隐藏，因此就出现了这个问题。</p>
+<p>原以为比较麻烦，后来搜了下，也比较简单地解决了，直接上代码：</p>
+<pre><code class="language-java">MenuItem menuItem = navigationView.getMenu().findItem(R.id.some_menu_item);
+menuItem.setVisible(false);	// true 为显示，false 为隐藏
+</code></pre>
+<p>这个问题也就这么解决了。😊</p>
+</li>
+<li>
+<p>使用 NavigationView 时透明状态栏的处理</p>
+<p>这个问题可以看我上一篇文章来解决<a href="http://laobie.github.io/android/2016/02/15/status-bar-demo.html"> Android App 沉浸式状态栏解决方案</a>，里面会讲到如何处理抽屉视图的透明状态栏的实现。</p>
+<p>或者直接使用我最新开源的 <a href="https://github.com/laobie/StatusBarUtil">StatusBarUtil</a> 工具类来处理。</p>
+</li>
+</ol>
+<h3 id="写在最后">写在最后</h3>
+<ul>
+<li>
+<p>目前来说 NavigationView 的定制性还是很不友好的，后面有时间研究下为其自定义布局，或者继承重写一个好用的 NavigationView。</p>
+</li>
+<li>
+<p>在使用 NavigationView 过程中，也有很多自己一开始不知道怎么解决的问题，通过 Google 搜索基本都找到了答案，同时现在也开始使用英文搜索，发现确实好用很多，果然如之前一个笑话所说:</p>
+<blockquote>
+<p>普通程序猿 + 搜索引擎 = 中高级程序猿</p>
+</blockquote>
+<p>虽说是笑话，不过使用好搜索引擎确实能解决很多问题。</p>
+</li>
+</ul>
+<p>如发现本文中错误或者提出建议，请评论或联系我，谢谢。</p>
+
+                </p>
+
+                <p class="md_block">
+                <div class="reward">
+                  <div class="reward-button">赏 <span class="reward-code"> <span class="alipay-code"> <img
+                          class="alipay-img" src="https://xudadi.cn/media/images/alipay.png"><b>支付宝扫码打赏</b>
+                      </span> <span class="wechat-code"> <img class="wechat-img"
+                          src="https://xudadi.cn/media/images/wechat.png"><b>微信打赏</b> </span> </span></div>
+                </div>
+                </p>
+              </div>
+
+            </div>
+
+            <link href="https://xudadi.cn/styles/main.css" type="text/css" rel="stylesheet" />
+
+            <div class="doc_comments">
+              
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="footer">
+  <link href="https://xudadi.cn/styles/main.css" type="text/css" rel="stylesheet" />
+  <div class="site_footer_wrap">
+    <div class="site_footer">
+
+      <div class="mysocials">
+        <div class="my_socials">
+          
+                
+                
+                
+              <a href="https://github.com/xudadi" target="_blank" title="github"><i
+                  class="fa fa-github"></i></a>
+              
+                
+        </div>
+        <link href="https://xudadi.cn/styles/main.css" type="text/css" rel="stylesheet" />
+
+      </div>
+
+      <div class="copyright">
+        Powered by <a href="https://xudadi.com" target="_blank">xudadi.com</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<style type="text/css">
+  a.back_to_top {
+    text-decoration: none;
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    background: #f0f0f0;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    line-height: 36px;
+    font-size: 18px;
+    text-align: center;
+    transition-duration: .5s;
+    transition-propety: background-color;
+    display: none;
+  }
+
+  a.back_to_top span {
+    color: #888;
+  }
+
+  a.back_to_top:hover {
+    cursor: pointer;
+    background: #dfdfdf;
+  }
+
+  a.back_to_top:hover span {
+    color: #555;
+  }
+
+  @media print,
+  screen and (max-width: 580px) {
+    .back_to_top {
+      display: none !important;
+    }
+  }
+</style><a id="back_to_top" href="#" class="back_to_top"><span>△</span>
+</a>
+<script type="text/javascript" src="https://xudadi.cn/media/scripts/jquery.js"></script>
+
+<script>$(document).ready((function (_this) {
+    return function () {
+      var bt;
+      bt = $('#back_to_top');
+      if ($(document).width() > 480) {
+        $(window).scroll(function () {
+          var st;
+          st = $(window).scrollTop();
+          if (st > 30) {
+            return bt.css('display', 'block');
+          } else {
+            return bt.css('display', 'none');
+          }
+        });
+        return bt.click(function () {
+          $('body,html').animate({
+            scrollTop: 0
+          }, 800);
+          return false;
+        });
+      }
+    };
+  })(this));
+</script>
+</body>
+
+</html>
