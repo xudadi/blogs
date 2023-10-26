@@ -7,13 +7,13 @@ markdown: kramdown
 kramdown:
   syntax_highlighter: rouge
 
-name: xudadi.cn
+name: Xudadi
 bio: xudadi.cn
 url: https://xudadi.cn/
 email: admin@xudadi.com
 logo: "/assets/img/def/logo.jpg"
 fav: "/favicon.ico"
-title: xudadi.cn
+title: 许大地博客
 description: xudadi.cn
 
 defaults:
