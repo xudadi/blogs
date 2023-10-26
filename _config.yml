@@ -1,0 +1,45 @@
+highlighter: rouge
+gems: [jekyll-paginate]
+encoding: utf-8
+paginate: 8
+paginate_path: "page:num"
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+
+name: xudadi.cn
+bio: xudadi.cn
+url: https://xudadi.cn/
+email: admin@xudadi.com
+logo: "/assets/img/def/logo.jpg"
+fav: "/favicon.ico"
+title: xudadi.cn
+description: xudadi.cn
+
+defaults:
+ -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      show_ad: true
+
+navs:
+  - 
+    href: /default.html
+    label: 主页
+  - 
+    href: http://xudadi.cn/daohang/index.html
+    label: 导航
+  -
+    href: /archives
+    label: 归档
+  - 
+    href: /about
+    label: 关于
+
+# ---------------- #
+#      Socials     #
+# ---------------- #
+github_id: xudadi
