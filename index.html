@@ -205,7 +205,7 @@ body.one-column #container.folded{
 <script>
 var pub_img_current_image;
 function backgroundImage(){
-var pub_img_path='//xudadi.gitee.io/images/';
+var pub_img_path='/';
 
 var pub_img_num = 18;
 
@@ -213,7 +213,7 @@ var pub_img_current_no=function(){return Math.floor(Math.random()*pub_img_num+1)
 
 var pub_img_url=function(){return pub_img_path+pub_img_current_no()+'.jpg';};
 
-if (pub_img_current_image === undefined ) pub_img_current_image = pub_img_url(/images/);
+if (pub_img_current_image === undefined ) pub_img_current_image = pub_img_url(/);
 
 if ('querySelector' in document) {
 	var body = document.querySelector('body').style;
